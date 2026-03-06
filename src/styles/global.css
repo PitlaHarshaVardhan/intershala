@@ -10,6 +10,8 @@ html, body, #root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background: #f3f3f3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app-wrapper {
@@ -17,11 +19,13 @@ html, body, #root {
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .screen-container {
   width: 100%;           /* fill smaller screens */
-  max-width: 375px;      /* cap at typical mobile width */
+  max-width: 414px;      /* support larger mobile devices */
   height: 100vh;         /* occupy full viewport height */
   background: white;
   padding: 24px;
@@ -30,6 +34,24 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 480px) {
+  .screen-container {
+    max-width: 100%;
+    padding: 20px 16px;
+    height: 100%;
+    min-height: 100vh;
+  }
+  
+  .app-wrapper {
+    padding-bottom: constant(safe-area-inset-bottom); /* iOS safe area */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 
 /* welcome screen pushes content to bottom */
@@ -41,26 +63,97 @@ html, body, #root {
   text-align: left;      /* left align nested text */
   display: flex;
   flex-direction: column;
+  min-height: 100%;
+}
+
+/* Mobile-specific welcome screen adjustments */
+@media (max-width: 480px) {
+  .welcome-screen {
+    padding: 16px 16px 60px 16px; /* extra bottom padding for safe area */
+    justify-content: flex-end;
+  }
+  
+  .welcome-screen h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  
+  .welcome-screen p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
 }
 
 /* registration-specific layout */
 .register-screen {
   justify-content: flex-start;
   padding: 24px 16px;
+  min-height: 100%;
 }
 .register-screen form {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 .register-screen .popx-button {
   margin-top: auto; /* push the button to bottom */
+  margin-bottom: 0;
+}
+
+/* Mobile-specific registration adjustments */
+@media (max-width: 480px) {
+  .register-screen {
+    padding: 20px 16px;
+  }
+  
+  .register-screen h2 {
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .popx-input {
+    padding: 14px 16px;
+    font-size: 16px; /* prevent zoom on iOS */
+  }
 }
 
 /* login-specific layout */
 .login-screen {
   justify-content: flex-start;
   padding: 24px 16px;
+  min-height: 100%;
+}
+
+/* Mobile-specific login adjustments */
+@media (max-width: 480px) {
+  .login-screen {
+    padding: 20px 16px;
+  }
+  
+  .login-screen h2 {
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  
+  .login-screen p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  
+  .popx-input {
+    padding: 14px 16px;
+    font-size: 16px; /* prevent zoom on iOS */
+  }
 }
 
 /* account-specific layout */
@@ -121,10 +214,51 @@ html, body, #root {
   width: 100%;
 }
 
-/* optional outline for development to visualize mobile frame */
-@media (min-width: 376px) {
+/* Responsive adjustments for tablets and larger screens */
+@media (min-width: 768px) {
   .screen-container {
-    /* on larger viewports, keep the same mobile-sized card */
+    max-width: 500px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: auto;
+    min-height: 600px;
+  }
+  
+  .welcome-screen {
+    padding: 32px;
+  }
+  
+  .register-screen, .login-screen {
+    padding: 32px;
+  }
+  
+  .profile-card {
+    max-width: 400px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .popx-input {
+    border-width: 1px;
+  }
+  
+  .avatar-container {
+    border-width: 1px;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .screen-container {
+    height: auto;
+    min-height: 100%;
+    padding: 16px;
+  }
+  
+  .welcome-screen {
+    padding: 16px;
   }
 }
 
@@ -132,6 +266,7 @@ h1, h2 {
   color: #333;
   margin-bottom: 16px;
   text-align: center;
+  font-weight: 700;
 }
 
 /* left‑align heading on registration screen */
@@ -145,6 +280,22 @@ p {
   margin-bottom: 16px;
   color: #555;
   text-align: center;
+  line-height: 1.5;
+}
+
+/* Mobile typography adjustments */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+  }
+  
+  h2 {
+    font-size: 22px;
+  }
+  
+  p {
+    font-size: 14px;
+  }
 }
 
 .form {
@@ -203,12 +354,28 @@ p {
   font-size: 16px;
   background: #fff;
   transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .popx-input:focus {
   outline: none;
   border-color: #6a11cb;
   box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.2);
+}
+
+/* Mobile input optimizations */
+@media (max-width: 480px) {
+  .popx-input {
+    padding: 14px 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 48px; /* Minimum touch target */
+  }
+  
+  .input-group {
+    margin-bottom: 18px;
+  }
 }
 
 .radio-group {
@@ -219,20 +386,32 @@ p {
 
 .popx-button {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: none;
   border-radius: 8px;
   color: white;
   font-size: 16px;
+  font-weight: 600;
   background: linear-gradient(90deg, #6a11cb, #2575fc);
   cursor: pointer;
   margin-bottom: 12px;
+  transition: transform 0.1s, opacity 0.2s;
+  min-height: 48px; /* Minimum touch target */
+}
+
+.popx-button:hover {
+  transform: translateY(-1px);
+}
+
+.popx-button:active {
+  transform: translateY(0);
 }
 
 .popx-button:disabled {
   background: #ccc;
   cursor: not-allowed;
   color: #666;
+  transform: none;
 }
 
 .popx-button.secondary {
@@ -244,7 +423,21 @@ p {
 .button-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Mobile button adjustments */
+@media (max-width: 480px) {
+  .popx-button {
+    padding: 16px;
+    font-size: 16px;
+    min-height: 52px;
+  }
+  
+  .button-group {
+    gap: 14px;
+  }
 }
 
 .error-text {
@@ -255,13 +448,14 @@ p {
 .profile-card {
   background: #fafafa;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   width: 100%;
-  max-width: 320px;
+  max-width: 360px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .header-row {
@@ -269,6 +463,19 @@ p {
   align-items: center;
   gap: 16px;
   width: 100%;
+}
+
+/* Mobile profile card adjustments */
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 16px 16px;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  
+  .header-row {
+    gap: 14px;
+  }
 }
 .profile-card h2 {
   /* header moved out; no styling necessary here */
@@ -294,26 +501,49 @@ p {
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 50%;
+  border: 3px solid #e0d4ff;
 }
 
 .camera-icon {
   position: absolute;
-  bottom: -16px;
-  right: -16px;
+  bottom: -12px;
+  right: -12px;
   transform: translate(50%, 50%);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   background: #6a11cb;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
   z-index: 10;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
-  border: 4px solid white;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  border: 3px solid white;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.camera-icon:hover {
+  background: #5a0fb0;
+  transform: translate(50%, 50%) scale(1.05);
+}
+
+/* Mobile avatar adjustments */
+@media (max-width: 480px) {
+  .avatar-container {
+    width: 72px;
+    height: 72px;
+  }
+  
+  .camera-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    bottom: -10px;
+    right: -10px;
+  }
 }
 .avatar-placeholder,
 .avatar-img {
@@ -344,9 +574,20 @@ p {
 .description {
   margin-top: 16px;
   text-align: left;
-  color: #777;
+  color: #666;
   font-size: 13px;
+  line-height: 1.6;
   /* divider removed */
   padding-top: 12px;
   width: 100%;
+  font-weight: 400;
+}
+
+/* Mobile description adjustments */
+@media (max-width: 480px) {
+  .description {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-top: 14px;
+  }
 }
