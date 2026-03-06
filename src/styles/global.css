@@ -63,7 +63,7 @@ html, body, #root {
   text-align: left;      /* left align nested text */
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  height: 100vh;
 }
 
 /* Mobile-specific welcome screen adjustments */
@@ -90,7 +90,7 @@ html, body, #root {
 .register-screen {
   justify-content: flex-start;
   padding: 24px 16px;
-  min-height: 100%;
+  height: 100vh;
 }
 .register-screen form {
   flex: 1;
@@ -129,7 +129,7 @@ html, body, #root {
 .login-screen {
   justify-content: flex-start;
   padding: 24px 16px;
-  min-height: 100%;
+  height: 100vh;
 }
 
 /* Mobile-specific login adjustments */
@@ -164,6 +164,7 @@ html, body, #root {
   border-bottom: 1px dashed #ccc;
   display: flex;
   gap: 24px;
+  height: 100vh;
 }
 
 .left-pane {
