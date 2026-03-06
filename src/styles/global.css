@@ -17,10 +17,11 @@ html, body, #root {
 .app-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-items: stretch;
+  height: 100vh;
   width: 100%;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .screen-container {
@@ -28,12 +29,12 @@ html, body, #root {
   max-width: 414px;      /* support larger mobile devices */
   height: 100vh;         /* occupy full viewport height */
   background: white;
-  padding: 24px;
+  padding: 0;
   border-radius: 0;      /* remove rounding for edge‑to‑edge look */
   box-shadow: none;      /* optional: drop shadow isn't needed for full screen */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -43,7 +44,7 @@ html, body, #root {
 @media (max-width: 480px) {
   .screen-container {
     max-width: 100%;
-    padding: 20px 16px;
+    padding: 16px;
     height: 100%;
     min-height: 100vh;
   }
@@ -59,7 +60,7 @@ html, body, #root {
   justify-content: flex-end;
   align-items: flex-start; /* position children at left edge */
   padding: 16px; /* smaller padding like screenshot */
-  padding-bottom: 48px; /* extra space from bottom edge */
+  padding-bottom: 60px; /* extra space from bottom edge for safe area */
   text-align: left;      /* left align nested text */
   display: flex;
   flex-direction: column;
@@ -89,7 +90,7 @@ html, body, #root {
 /* registration-specific layout */
 .register-screen {
   justify-content: flex-start;
-  padding: 24px 16px;
+  padding: 20px 16px;
   height: 100vh;
 }
 .register-screen form {
@@ -128,7 +129,7 @@ html, body, #root {
 /* login-specific layout */
 .login-screen {
   justify-content: flex-start;
-  padding: 24px 16px;
+  padding: 20px 16px;
   height: 100vh;
 }
 
@@ -159,7 +160,7 @@ html, body, #root {
 /* account-specific layout */
 .account-screen {
   justify-content: flex-start;
-  padding: 0 16px 24px; /* no top padding so header sits at very top */
+  padding: 12px 16px 24px; /* optimized padding for 100vh */
   /* remove top dashed border so header bg meets container top */
   border-bottom: 1px dashed #ccc;
   display: flex;
