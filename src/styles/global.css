@@ -1,0 +1,352 @@
+/* basic reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: #f3f3f3;
+}
+
+.app-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.screen-container {
+  width: 100%;           /* fill smaller screens */
+  max-width: 375px;      /* cap at typical mobile width */
+  height: 100vh;         /* occupy full viewport height */
+  background: white;
+  padding: 24px;
+  border-radius: 0;      /* remove rounding for edge‑to‑edge look */
+  box-shadow: none;      /* optional: drop shadow isn't needed for full screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* welcome screen pushes content to bottom */
+.welcome-screen {
+  justify-content: flex-end;
+  align-items: flex-start; /* position children at left edge */
+  padding: 16px; /* smaller padding like screenshot */
+  padding-bottom: 48px; /* extra space from bottom edge */
+  text-align: left;      /* left align nested text */
+  display: flex;
+  flex-direction: column;
+}
+
+/* registration-specific layout */
+.register-screen {
+  justify-content: flex-start;
+  padding: 24px 16px;
+}
+.register-screen form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.register-screen .popx-button {
+  margin-top: auto; /* push the button to bottom */
+}
+
+/* login-specific layout */
+.login-screen {
+  justify-content: flex-start;
+  padding: 24px 16px;
+}
+
+/* account-specific layout */
+.account-screen {
+  justify-content: flex-start;
+  padding: 0 16px 24px; /* no top padding so header sits at very top */
+  /* remove top dashed border so header bg meets container top */
+  border-bottom: 1px dashed #ccc;
+  display: flex;
+  gap: 24px;
+}
+
+.left-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.right-pane {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+.login-screen h2 {
+  text-align: left;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.login-screen p {
+  margin-bottom: 24px;
+  color: #555;
+  text-align: left;
+  font-size: 14px;
+}
+.login-screen .popx-button {
+  margin-top: 16px;
+}
+
+.welcome-screen h1 {
+  margin-bottom: 8px;
+}
+
+.welcome-screen p {
+  margin-bottom: 32px;
+}
+
+/* ensure button group stays centered horizontally */
+.welcome-screen .button-group {
+  align-self: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* ensure heading and paragraph stretch full width for proper left alignment */
+.welcome-screen h1,
+.welcome-screen p {
+  width: 100%;
+}
+
+/* optional outline for development to visualize mobile frame */
+@media (min-width: 376px) {
+  .screen-container {
+    /* on larger viewports, keep the same mobile-sized card */
+  }
+}
+
+h1, h2 {
+  color: #333;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* left‑align heading on registration screen */
+.register-screen h2 {
+  text-align: left;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+p {
+  margin-bottom: 16px;
+  color: #555;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 24px; /* larger spacing between fields */
+  position: relative; /* enable absolute label positioning */
+}
+
+.input-group label {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  background: white;
+  padding: 0 4px;
+  font-weight: 500;
+  color: #6a11cb; /* purple label color */
+  font-size: 12px;
+}
+
+/* override for radio question so label is normal */
+.radio-group-container {
+  position: static;
+}
+.radio-group-container label,
+.radio-group-container .radio-label {
+  position: static;
+  top: auto;
+  left: auto;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  color: #6a11cb;
+  margin-bottom: 8px;
+}
+
+/* required asterisk next to label */
+.required {
+  color: red;
+  margin-left: 2px;
+}
+
+/* radio accent color */
+.radio-group input[type="radio"] {
+  accent-color: #6a11cb;
+}
+
+.popx-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.popx-input:focus {
+  outline: none;
+  border-color: #6a11cb;
+  box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.2);
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.popx-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.popx-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  color: #666;
+}
+
+.popx-button.secondary {
+  background: #e0d4ff; /* light purple */
+  color: #6a11cb;
+  border: none;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error-text {
+  color: red;
+  margin-bottom: 12px;
+}
+
+.profile-card {
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.profile-card h2 {
+  /* header moved out; no styling necessary here */
+}
+
+.account-header {
+  width: 100%;
+  /* transparent background now */
+  background: transparent;
+  padding: 12px 16px;
+  border-bottom: none;
+  box-sizing: border-box;
+}
+.account-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.avatar-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: -12px;
+  right: -12px;
+  transform: translate(50%, 50%);
+  width: 36px;
+  height: 36px;
+  background: #6a11cb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  border: 3px solid white;
+}
+.avatar-placeholder,
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+.avatar-img {
+  object-fit: cover;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* align text to left of details area */
+}
+.details p:first-child {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.description {
+  margin-top: 16px;
+  text-align: left;
+  color: #777;
+  font-size: 13px;
+  /* divider removed */
+  padding-top: 12px;
+  width: 100%;
+}
