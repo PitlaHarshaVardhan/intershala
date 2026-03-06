@@ -50,7 +50,7 @@ const AccountSettings = () => {
             ) : (
               <div className="avatar-placeholder">👤</div>
             )}
-<div className="camera-icon" onClick={handlePhotoClick}><FaCamera size={12} color="#fff" /></div>
+<div className="camera-icon" onClick={handlePhotoClick}><FaCamera size={30} color="#fff" /></div>
             <input
               type="file"
               accept="image/*"
