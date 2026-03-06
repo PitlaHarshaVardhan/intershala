@@ -27,7 +27,7 @@ html, body, #root {
 .screen-container {
   width: 100%;           /* fill smaller screens */
   max-width: 414px;      /* support larger mobile devices */
-  height: 85vh;          /* occupy 85% of viewport height for better mobile experience */
+  height: 100vh;         /* occupy full viewport height to prevent scrolling */
   background: white;
   padding: 0;
   border-radius: 0;      /* remove rounding for edge‑to‑edge look */
@@ -64,7 +64,7 @@ html, body, #root {
   text-align: left;      /* left align nested text */
   display: flex;
   flex-direction: column;
-  height: 85vh;
+  height: 100vh;
 }
 
 /* Mobile-specific welcome screen adjustments */
@@ -91,7 +91,7 @@ html, body, #root {
 .register-screen {
   justify-content: flex-start;
   padding: 20px 16px;
-  height: 85vh;
+  height: 100vh;
 }
 .register-screen form {
   flex: 1;
@@ -130,7 +130,7 @@ html, body, #root {
 .login-screen {
   justify-content: flex-start;
   padding: 20px 16px;
-  height: 85vh;
+  height: 100vh;
 }
 
 /* Mobile-specific login adjustments */
@@ -160,12 +160,12 @@ html, body, #root {
 /* account-specific layout */
 .account-screen {
   justify-content: flex-start;
-  padding: 12px 16px 24px; /* optimized padding for 85vh */
+  padding: 12px 16px 24px; /* optimized padding for 100vh */
   /* remove top dashed border so header bg meets container top */
   border-bottom: 1px dashed #ccc;
   display: flex;
   gap: 24px;
-  height: 85vh;
+  height: 100vh;
 }
 
 .left-pane {
